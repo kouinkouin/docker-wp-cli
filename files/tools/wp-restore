@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#
+# VARS
+#
+usage="Usage: $0 \$PROJECT_FOLDER \$SITE_URL \nExample: ${0} /srv/users/nmelotte/project/common/autominiature/ http://nmelotte-autominiature.dev.antidot.be/"
+[ $# -ne 2 ] && echo -e ${usage} && exit;
+
+. $(dirname $0)/common.inc.sh
+
+#
+# Check BACKUP FILE EXIST
+#
+[ ! -e ${backup_file} ] && echo "Backup file 'export_migratedb.sql' does not exist." && exit 1
+
+echo <<EOT
+siteurl=${siteurl}
+protocol=${protocol}
+domain=${domain}
+site_url=${site_url}
+encoded_url=${encoded_url}
+EOT
+
+#
+# RESTORE THE DATABASE AND REPLACE DOCUMENTROOT AND URL WITH __SITEURL__ AND __PATH__
+#
+echo "Reseting current database ..."
+${wp_cmd} db reset --yes || exit 1
+echo "Importing database ..."
+${wp_cmd} db import ${backup_file} || exit 1
+echo "Replacing __SITEURL__ with ${siteurl} ..."
+${wp_cmd} search-replace --all-tables __SITEURL__ ${siteurl} || exit 1
+echo "Replacing __DOMAIN__ with ${domain} ..."
+${wp_cmd} search-replace --all-tables __DOMAIN__ ${domain} || exit 1
+echo "Replacing __ENCODED_URL__ with ${encoded_url} ..."
+${wp_cmd} search-replace --all-tables __ENCODED_URL__ "${protocol}%3A%2F%2F${domain}" || exit 1
+echo "Replacing __PATH__ with ${wwwroot} ..."
+${wp_cmd} search-replace --all-tables __PATH__ ${wwwroot} || exit 1
+echo "Restore database done."
+

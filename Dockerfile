@@ -8,3 +8,7 @@ RUN apt-get update \
 RUN wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp && \
     chmod +x /usr/local/bin/wp
 
+ADD files/tools /srv/tools
+
+RUN chmod +x /srv/tools/wp-*
+
