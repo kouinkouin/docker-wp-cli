@@ -20,12 +20,14 @@ echo "Reseting current database ..."
 ${wp_cmd} db reset --yes || exit 1
 echo "Importing database ..."
 ${wp_cmd} db import ${backup_file} || exit 1
-echo "Replacing __SITEURL__ with ${siteurl} ..."
-${wp_cmd} search-replace --all-tables __SITEURL__ ${siteurl} || exit 1
+echo "Replacing __SITEURL__ with ${site_url} ..."
+${wp_cmd} search-replace --all-tables __SITEURL__ ${site_url} || exit 1
+echo "Replacing __ENCODED_URL__ with ${encoded_url} ..."
+${wp_cmd} search-replace --all-tables __ENCODED_URL__ "${encoded_url}" || exit 1
+echo "Replacing __ESCAPED_URL__ with ${escaped_url} ..."
+${wp_cmd} search-replace --all-tables __ESCAPED_URL__ "${escaped_url}" || exit 1
 echo "Replacing __DOMAIN__ with ${domain} ..."
 ${wp_cmd} search-replace --all-tables __DOMAIN__ ${domain} || exit 1
-echo "Replacing __ENCODED_URL__ with ${encoded_url} ..."
-${wp_cmd} search-replace --all-tables __ENCODED_URL__ "${protocol}%3A%2F%2F${domain}" || exit 1
 echo "Replacing __PATH__ with ${wwwroot} ..."
 ${wp_cmd} search-replace --all-tables __PATH__ ${wwwroot} || exit 1
 echo "Restore database done."

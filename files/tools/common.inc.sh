@@ -16,6 +16,7 @@ domain=$(echo $siteurl | cut -d/ -f3)
 
 site_url=${protocol}://${domain}
 encoded_url=${protocol}%3A%2F%2F${domain}
+escaped_url=${protocol}:\\/\\/${domain}
 
 echo "
 site_url: $site_url

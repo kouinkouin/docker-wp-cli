@@ -6,8 +6,8 @@ usage="Usage: $0 \$PROJECT_FOLDER \$SITE_URL \nExample: ${0} /srv/users/nmelotte
 . $(dirname $0)/common.inc.sh
 
 ${wp_cmd} migratedb export ${backup_file} \
---find=${siteurl},${wwwroot},${project_path},${encoded_url},${domain} \
---replace=__SITEURL__,__PATH__,__PATH__,__ENCODED_URL__,__DOMAIN__ || exit 1
+--find=${site_url},${wwwroot},${project_path},${encoded_url},${escaped_url},${domain} \
+--replace=__SITEURL__,__PATH__,__PATH__,__ENCODED_URL__,__ESCAPED_URL__,__DOMAIN__ || exit 1
 
 echo "Backup done and available in '${backup_dir}'"
 
