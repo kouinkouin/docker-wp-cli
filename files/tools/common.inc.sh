@@ -17,6 +17,15 @@ domain=$(echo $siteurl | cut -d/ -f3)
 site_url=${protocol}://${domain}
 encoded_url=${protocol}%3A%2F%2F${domain}
 
+echo "
+site_url: $site_url
+protocol: $protocol
+domain: $domain
+encoded_url: $encoded_url
+escaped_url: $escaped_url
+wwwroot: $wwwroot
+"
+
 #
 # CHECK VARIABLES
 #

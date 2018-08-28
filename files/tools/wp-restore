@@ -13,14 +13,6 @@ usage="Usage: $0 \$PROJECT_FOLDER \$SITE_URL \nExample: ${0} /srv/users/nmelotte
 #
 [ ! -e ${backup_file} ] && echo "Backup file 'export_migratedb.sql' does not exist." && exit 1
 
-echo <<EOT
-siteurl=${siteurl}
-protocol=${protocol}
-domain=${domain}
-site_url=${site_url}
-encoded_url=${encoded_url}
-EOT
-
 #
 # RESTORE THE DATABASE AND REPLACE DOCUMENTROOT AND URL WITH __SITEURL__ AND __PATH__
 #
