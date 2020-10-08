@@ -1,4 +1,6 @@
-FROM kouinkouin/php-cli:7.2
+ARG PHP_VERSION=7.4
+
+FROM kouinkouin/php-cli:$PHP_VERSION
 
 RUN apt-get update \
   && apt-get install -y mariadb-client \
